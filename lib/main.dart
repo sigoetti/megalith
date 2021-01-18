@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:megalith/detailPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MegalithApp());
 }
 
-final dummySnapshot = [
-  {"location": "Lutry", "description": "ziemlich viiiiiiiel Text"},
-  {"location": "Yverdon", "description": "ziemlich viiiiiiiel Text"},
-];
 
 class MegalithApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -36,6 +34,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Query query = FirebaseFirestore.instance.collection('places');
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,17 +43,51 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             title: Text('Liste'),
           ),
-          body: ListView.builder(
-              itemCount: dummySnapshot.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text('megalith'),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DetailPage()));
-                  },
-                );
-              })),
+          body: StreamBuilder<QuerySnapshot>(
+            stream: query.snapshots(),
+            builder: (context, stream) {
+              if (stream.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+
+              if (stream.hasError) {
+                return Center(child: Text(stream.error.toString()));
+              }
+
+              QuerySnapshot querySnapshot = stream.data;
+              print('snapshot size ' + querySnapshot.size.toString());
+              return ListView.builder(
+                itemCount: querySnapshot.size,
+                itemBuilder: (context, index) =>
+                    Megalith(querySnapshot.docs[index]),
+              );
+            },
+          )),
+    );
+  }
+}
+
+class Megalith extends StatelessWidget {
+  final DocumentSnapshot snapshot;
+
+  Megalith(this.snapshot);
+
+  Map<String, dynamic> get megalith {
+    return snapshot.data();
+  }
+
+  Widget get title {
+    return Text("${megalith['location']}");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: title,
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DetailPage()));
+      },
     );
   }
 }

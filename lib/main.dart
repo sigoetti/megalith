@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:megalith/detailPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:megalith/MegalithDB.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,31 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           )),
-    );
-  }
-}
-
-class Megalith extends StatelessWidget {
-  final DocumentSnapshot snapshot;
-
-  Megalith(this.snapshot);
-
-  Map<String, dynamic> get megalith {
-    return snapshot.data();
-  }
-
-  Widget get title {
-    return Text("${megalith['location']}");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: title,
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailPage()));
-      },
     );
   }
 }

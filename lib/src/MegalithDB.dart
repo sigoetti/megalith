@@ -11,17 +11,29 @@ class Megalith extends StatelessWidget {
     return snapshot.data();
   }
 
-  Widget get location {
-    return Text("${megalith['location']}");
+  String get location {
+    return ("${megalith['location']}");
+  }
+
+  String get description {
+    return ("${megalith['description']}");
+  }
+
+  String get biblio {
+    return ("${megalith['biblio']}");
+  }
+
+  GeoPoint get gps {
+    return megalith['gps'];
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: location,
+      title: Text(location),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailPage()));
+            context, MaterialPageRoute(builder: (context) => DetailPage(location: location, description: description, gps: gps, biblio: biblio)));
       },
     );
   }

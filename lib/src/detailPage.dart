@@ -1,8 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
 
+  final String location;
+  final String description;
+  final String biblio;
+  final GeoPoint gps;
+
+  DetailPage ({
+    @required this.location,
+    @required this.description,
+    @required this.gps,
+    this.biblio,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +30,7 @@ class DetailPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  'title',
+                  location,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30.0,
@@ -31,7 +43,7 @@ class DetailPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Expanded(
-                  child: Text('Standort'),
+                  child: Text('N: '+ gps.latitude.toString() +' / O: '+ gps.longitude.toString()),
                 ),
                 Icon(Icons.location_on),
               ],
@@ -39,7 +51,7 @@ class DetailPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.fromLTRB(0, 20.0, 0, 20.0),
               child: Text(
-                'description aaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa',
+                description,
               ),
             ),
 

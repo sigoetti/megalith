@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:megalith/detailPage.dart';
+import 'package:megalith/src/detailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Megalith extends StatelessWidget {

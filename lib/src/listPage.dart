@@ -34,7 +34,6 @@ class _ListPageState extends State<ListPage> {
               }
 
               QuerySnapshot querySnapshot = stream.data;
-              print('snapshot size ' + querySnapshot.size.toString());
               return ListView.builder(
                 itemCount: querySnapshot.size,
                 itemBuilder: (context, index) =>

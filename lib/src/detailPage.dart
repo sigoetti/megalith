@@ -8,22 +8,22 @@ class DetailPage extends StatelessWidget {
   final String description;
   final String biblio;
   final GeoPoint gps;
+  final String img;
 
   DetailPage ({
     @required this.location,
     @required this.description,
     @required this.gps,
+    @required this.img,
     this.biblio,
   });
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Material(
         child: SingleChildScrollView (
           child:   Column(children: <Widget>[
-            Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/8/85/Merrymaidens5.jpg'),
+            Image.network(img),
             Padding(
               padding: EdgeInsets.all(30.0),
 

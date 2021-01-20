@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:megalith/src/mapPage.dart';
 
 class DetailPage extends StatelessWidget {
 
@@ -10,7 +11,7 @@ class DetailPage extends StatelessWidget {
   final GeoPoint gps;
   final String img;
 
-  DetailPage ({
+  DetailPage({
     @required this.location,
     @required this.description,
     @required this.gps,
@@ -21,8 +22,8 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: SingleChildScrollView (
-          child:   Column(children: <Widget>[
+        child: SingleChildScrollView(
+          child: Column(children: <Widget>[
             Image.network(img),
             Padding(
               padding: EdgeInsets.all(30.0),
@@ -45,9 +46,17 @@ class DetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
-                        child: Text('N: '+ gps.latitude.toString() +' / O: '+ gps.longitude.toString()),
+                        child: Text('N: ' + gps.latitude.toString() + ' / O: ' +
+                            gps.longitude.toString()),
                       ),
-                      Icon(Icons.location_on),
+                      IconButton(
+                          icon: Icon(Icons.location_on),
+                          onPressed: () {
+                            Navigator.push(
+                                context, MaterialPageRoute(builder: (context) => MapPage(gps: gps)));
+                          },
+                      )
+
                     ],
                   ),
                   Container(
@@ -59,13 +68,13 @@ class DetailPage extends StatelessWidget {
                   Container(
                     child: Column(
                       children: [
-                        Row( children: [
+                        Row(children: [
                           Text('Literatur',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),),
-                        ], ),
-                        Row( children: [
+                        ],),
+                        Row(children: [
                           Text(biblio)
                         ],)
                       ],
@@ -79,6 +88,6 @@ class DetailPage extends StatelessWidget {
         )
 
 
-      );
+    );
   }
 }

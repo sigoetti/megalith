@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:megalith/src/detailPage.dart';
+import 'detailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Megalith extends StatelessWidget {
@@ -31,14 +31,20 @@ class Megalith extends StatelessWidget {
     return megalith['gps'];
   }
 
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(location),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailPage(location: location, description: description, gps: gps, biblio: biblio, img: img)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailPage(
+                    location: location,
+                    description: description,
+                    gps: gps,
+                    biblio: biblio,
+                    img: img)));
       },
     );
   }

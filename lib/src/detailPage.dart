@@ -25,6 +25,7 @@ class DetailPage extends StatelessWidget {
         FadeInImage.assetNetwork(
           placeholder: 'assets/placeholder.jpg',
           image: img,
+          height: 320.0,
         ),
         Padding(
           padding: EdgeInsets.all(30.0),

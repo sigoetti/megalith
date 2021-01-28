@@ -25,22 +25,23 @@ class DetailPage extends StatelessWidget {
         FadeInImage.assetNetwork(
           placeholder: 'assets/placeholder.jpg',
           image: img,
-          height: 320.0,
+          height: 300.0,
         ),
         Padding(
           padding: EdgeInsets.all(30.0),
           child: Column(
             children: <Widget>[
               Row(
-                children: <Widget>[
-                  Text(
-                    location,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                    ),
-                    textAlign: TextAlign.left,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[ Expanded(child:  Text(
+                  location,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
                   ),
+                  textAlign: TextAlign.left,
+                ),)
+
                 ],
               ),
               Row(
@@ -86,7 +87,9 @@ class DetailPage extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      children: [Text(biblio)],
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [Expanded(child: Text(biblio),)
+                        ],
                     )
                   ],
                 ),
